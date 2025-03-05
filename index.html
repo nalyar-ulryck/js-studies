@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animação de Deslocamento</title>
+    <style>
+        .animar {
+            width: 100px;
+            height: 100px;
+            /* background-color: #00f; */
+            position: relative;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 28px;
+            color: aliceblue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Exemplo de uso de Promise</h1>
+    <img src="image.png" class="animar" alt="" srcset="" id="animar1">
+    <img src="image.png" class="animar" alt="" srcset="" id="animar2">
+    <img src="image.png" class="animar" alt="" srcset="" id="animar3">
+    <img src="image.png" class="animar" alt="" srcset="" id="animar4">
+    <script>
+        function animacaoDeslocamento(elemento, duracao, destino) {
+            return new Promise((resolve) => {
+                let inicio = null;
+                elemento.src =  '1972257_bf1a5.gif';
+
+                function passo(timestamp) {
+                    if (!inicio) inicio = timestamp;
+                    let progresso = timestamp - inicio;
+                    let posicao = Math.min(progresso / duracao * destino, destino); // Move até o destino aleatório
+
+                    elemento.style.left = posicao + 'px';
+
+                    if (progresso < duracao) {
+                        requestAnimationFrame(passo);
+                    } else {
+                        elemento.src =  'image.png';
+                        resolve(); // Resolve a promise quando a animação terminar
+                    }
+                }
+
+                requestAnimationFrame(passo);
+            });
+        }
+
+        const elementos = [
+            document.getElementById('animar1'),
+            document.getElementById('animar2'),
+            document.getElementById('animar3'),
+            document.getElementById('animar4')
+        ];
+
+        function getRandomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        const velocidade = 500; // Define a velocidade em pixels por segundo
+
+        // Calcula a duração com base na distância e na velocidade
+        function calculaDuracao(distancia) {
+            return (distancia / velocidade) * 1000; // Converte para milissegundos
+        }
+
+        // Executa as animações em sequência usando promises
+        const destinos = elementos.map(() => getRandomNumber(100, 900));
+        console.log(destinos);
+        
+        animacaoDeslocamento(elementos[0], calculaDuracao(destinos[0]), destinos[0])
+            .then(() => animacaoDeslocamento(elementos[1], calculaDuracao(destinos[1]), destinos[1]))
+            .then(() => animacaoDeslocamento(elementos[2], calculaDuracao(destinos[2]), destinos[2]))
+            .then(() => animacaoDeslocamento(elementos[3], calculaDuracao(destinos[3]), destinos[3]));
+    </script>
+</body>
+</html>
