@@ -1,6 +1,6 @@
 .animar {
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
     /* background-color: #00f; */
     position: relative;
     margin-bottom: 10px;
@@ -10,4 +10,21 @@
     font-weight: 900;
     font-size: 28px;
     color: aliceblue;
+}
+
+.container {
+    background-image: url('img/start-finish-line-racing-background-top-view-grunge-textured-asphalt-road-abstract-concept-graphic-element-vector-eps10-illustration_182604-282.avif');
+    background-repeat: no-repeat;
+    width: 900px;
+    height: fit-content;
+    background-size: contain;
+    background-position: top;
+    padding: 20px;
+}
+body {
+    margin: 0;
+    padding: 20px;
+    width: 100vw;
+    height: 100vh;
+    background-color: lightblue;
 }
