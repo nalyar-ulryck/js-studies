@@ -2,7 +2,6 @@ function animacaoDeslocamento(elemento, duracao, destino) {
   return new Promise((resolve) => {
     let inicio = null;
     elemento.src = "img/1972257_bf1a5.gif";
-
     function passo(timestamp) {
       if (!inicio) inicio = timestamp;
       let progresso = timestamp - inicio;
@@ -11,6 +10,7 @@ function animacaoDeslocamento(elemento, duracao, destino) {
       elemento.style.left = posicao + "px";
 
       if (progresso < duracao) {
+        
         requestAnimationFrame(passo);
       } else {
         elemento.src = "img/image.png";
@@ -26,7 +26,6 @@ const elementos = [
   document.getElementById("animar1"),
   document.getElementById("animar2"),
   document.getElementById("animar3"),
-  document.getElementById("animar4"),
 ];
 
 function getRandomNumber(min, max) {
@@ -44,7 +43,6 @@ function calculaDuracao(distancia) {
 
 async function executarAnimacoes() {
   const destinos = elementos.map(() => getRandomNumber(100, 900));
-  console.log(destinos);
 
   for (let i = 0; i < elementos.length; i++) {
     await animacaoDeslocamento(
