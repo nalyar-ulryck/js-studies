@@ -40,17 +40,19 @@ function calculaDuracao(distancia) {
   return (distancia / velocidade) * 1000; // Converte para milissegundos
 }
 
-// Executa as animações em sequência usando promises
-const destinos = elementos.map(() => getRandomNumber(100, 900));
-console.log(destinos);
+// Executa as animações em sequência usando async/await
 
-animacaoDeslocamento(elementos[0], calculaDuracao(destinos[0]), destinos[0])
-  .then(() =>
-    animacaoDeslocamento(elementos[1], calculaDuracao(destinos[1]), destinos[1])
-  )
-  .then(() =>
-    animacaoDeslocamento(elementos[2], calculaDuracao(destinos[2]), destinos[2])
-  )
-  .then(() =>
-    animacaoDeslocamento(elementos[3], calculaDuracao(destinos[3]), destinos[3])
-  );
+async function executarAnimacoes() {
+  const destinos = elementos.map(() => getRandomNumber(100, 900));
+  console.log(destinos);
+
+  for (let i = 0; i < elementos.length; i++) {
+    await animacaoDeslocamento(
+      elementos[i],
+      calculaDuracao(destinos[i]),
+      destinos[i]
+    );
+  }
+}
+
+executarAnimacoes();
